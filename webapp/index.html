@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Rest Example</title>
+</head>
+<body>
+<button onclick="getUsers()">Get Users</button>
+<p id="users"></p>
+<div>
+POST user: <input id="post_user" type="text" name="fname"><br>
+<button onclick="postUser()"> post user</button>
+</div>
+<div>
+    <p>PUT user</p>
+    user: <input id="old_user" type="text" name="fname"><br>
+    new user: <input id="updated_user" type="text" name="fname"><br>
+
+    <button onclick="putUser()"> PUT user</button>
+</div>
+
+<div>
+    DELETE user: <input id="delete_user" type="text" name="fname"><br>
+    <button onclick="deleteUser()"> delete user</button>
+</div>
+<script>
+    function getUsers() {
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://localhost:8000/users",
+            "method": "GET",
+            "headers": {
+            }
+        }
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            document.getElementById("users").innerHTML = response.users.toString()
+        });
+    }
+
+    function postUser() {
+        var user = "{\n\t\"user\":\""+document.getElementById("post_user").value + "\"\n\t\n}";
+     //var user= {"user": document.getElementById("post_user").value};
+
+        console.log(user)
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://localhost:8000/user",
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "processData": false,
+            "data": user
+        }
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
+    }
+
+    function deleteUser() {
+        var user = "{\n\t\"user\":\"" + document.getElementById("delete_user").value + "\"\n\t\n}";
+        console.log(user);
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://localhost:8000/user",
+            "method": "DELETE",
+            "headers": {
+                "Content-Type": "application/json",
+            },
+            "processData": false,
+            "data": user
+        }
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
+    }
+        function putUser() {
+
+            var users = "{\n\t\"user_old\":\""+document.getElementById("old_user").value + "\", \"user_new\":\""
+                +document.getElementById("new_user").value + "\"\n\t\n}";
+            console.log(users);
+
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://localhost:8000/user",
+                "method": "PUT",
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "processData": false,
+                "data": users
+            }
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+            });
+        }
+
+
+</script>
+</body>
+</html>
