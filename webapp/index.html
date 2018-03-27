@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <meta charset="UTF-8">
     <title>Rest Example</title>
@@ -85,7 +86,7 @@ POST user: <input id="post_user" type="text" name="fname"><br>
         function putUser() {
 
             var users = "{\n\t\"user_old\":\""+document.getElementById("old_user").value + "\", \"user_new\":\""
-                +document.getElementById("new_user").value + "\"\n\t\n}";
+                +document.getElementById("updated_user").value + "\"\n\t\n}";
             console.log(users);
 
             var settings = {
